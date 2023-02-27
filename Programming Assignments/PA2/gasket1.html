@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<title>2D Sierpinski Gasket</title>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+    attribute vec4 vPosition;
+    attribute vec3 aVertexColor;
+    varying vec3 vColor;
+    void
+    main()
+    {
+        gl_PointSize = 1.0;
+        gl_Position = vPosition;
+        vColor = aVertexColor;
+    }
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+    precision mediump float;
+    varying vec3 vColor;
+    void
+    main()
+    {
+        gl_FragColor = vec4(vColor, 1);
+        
+    }
+</script>
+
+<script type="text/javascript" src="./Common/webgl-utils.js"></script>
+<script type="text/javascript" src="./Common/initShaders.js"></script>
+<script type="text/javascript" src="./Common/MV.js"></script>
+<script type="text/javascript" src="./gasket1.js"></script>
+</head>
+
+<body>
+    <div vlass="slider">
+        <p> Points: </p> <input type="range" id="slider" min="0" max="100000" value="1000" onchange="pointsChange()" />
+    </div>
+
+    <div class="slider">
+        <p> Animation Speed: </p> <input type="range" id="speed" min="0" max="2000" value="1000" step="200" onchange="speedChange()"/>
+    </div>
+
+    <div class="slider">
+        <p> Size: </p> <input type="range" id="size" min="0" max="1.0" value = "0.5" step="0.1" />
+    </div>
+
+    <div class="colorpicker">
+        <p> Color: </p> <input type="color" id="color" value="#000000" />
+    </div>
+
+    
+
+<canvas id="gl-canvas" >
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+
+<p id="status"> Press Start!</p>
+
+<button id="start" onclick="startAnimation()"> Start </button>
+
+<button id="stop" onclick="clearInterval(intervalId)"> Stop </button>
+</body>
+</html>
